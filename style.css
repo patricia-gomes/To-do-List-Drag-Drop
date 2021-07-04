@@ -1,0 +1,82 @@
+body {
+	background: #aed7efcc;
+	font-family: 'Arial';
+}
+.header {
+	display: flex;
+	justify-content: center;
+}
+.todo_list {
+	width: 296px;
+	height: 300px;
+	color: #848484;
+	margin: 14px 3px 20px;
+	padding: 4px;
+}
+.todo_list_title {
+	text-align: center;
+	font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+.background {
+	background-color: #fff;
+	border-top: 4px solid tomato;
+	border-radius: 3px;
+}
+.posts_it {
+	width: 282px;
+	height: 22px;
+	line-height: 22px;
+	margin: 6px 3px 6px 3px;
+	padding:3px;
+	background-color: #d6d4d642;
+	border-left: 2px solid tomato;
+}
+.todo_list ul {
+	list-style: none;
+	padding:0px;
+	margin:0px;
+}
+
+.footer_todo_list {
+	position: fixed;
+    bottom: 297px;
+}
+.new_todo {
+	margin: 0px 0px 0px 74px;
+}
+
+.footer_todo_list input {
+	width: 240px;
+	height: 24px;
+	border:1px solid #ccc;
+    border-radius: 3px;
+    color: #848484;
+}
+.footer_todo_list button {
+	width: 37px;
+	height: 28px;
+    background: #c5c5c5;
+    border: 1px solid #ccc;
+    color: #ffffff;
+   	margin-left: -5px;
+    cursor: pointer;
+}
+.button_open_input_todo {
+	position: fixed;
+    margin: -28px 255px;
+}
+button:focus, input:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+}
+.checkbox {
+	width: 11px;
+}
+.footer {
+	text-align: center;
+    font-weight: 600;
+    color: #504e50;
+    font-size: 12px;
+}
