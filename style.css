@@ -2,6 +2,9 @@ body {
 	background: #aed7efcc;
 	font-family: 'Arial';
 }
+.hover {
+	background: blue;
+}
 .header {
 	display: flex;
 	justify-content: center;
@@ -24,7 +27,13 @@ body {
 	border-top: 4px solid tomato;
 	border-radius: 3px;
 }
-.posts_it {
+.todo_list ul {
+	list-style: none;
+	padding:0px;
+	margin:0px;
+}
+
+.todo_list li {
 	width: 282px;
 	height: 22px;
 	line-height: 22px;
@@ -33,12 +42,10 @@ body {
 	background-color: #d6d4d642;
 	border-left: 2px solid tomato;
 }
-.todo_list ul {
-	list-style: none;
-	padding:0px;
-	margin:0px;
-}
 
+.todo_list li:hover button  {
+	display: block;
+}
 .footer_todo_list {
 	position: fixed;
     bottom: 297px;
@@ -54,13 +61,23 @@ body {
     border-radius: 3px;
     color: #848484;
 }
+.button_delete {
+	float: right;
+	background: none;
+	cursor: pointer;
+	font-family: arial, verdana;
+	font-size: 10px;
+	border: none;
+    outline: none;
+	display: none;
+}
 .footer_todo_list button {
-	width: 37px;
+	width: 40px;
 	height: 28px;
     background: #c5c5c5;
     border: 1px solid #ccc;
     color: #ffffff;
-   	margin-left: -5px;
+    margin-left:05px;/* 255px*/
     cursor: pointer;
 }
 .button_open_input_todo {

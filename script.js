@@ -30,3 +30,35 @@ let     itens = [];
 		input.value = '';
 		render(itens);
 	}
+
+	function render(itens) {
+
+		if(itens != null) {			
+
+			list.innerHTML = ``;
+
+			//Percorre os to-do cadastrado para exibir
+			itens.forEach(function(item) {
+				const li = document.createElement('li');//Cria a tag <li>
+
+				//Cria um atributo data-key dentro da tag <li> com o valor do id
+				li.setAttribute('data-key', item.id);
+				//Exibe o input checkbox dentro de <li>
+				li.innerHTML = `<input type='checkbox' class='checkbox'> ${item.todo} `;
+				//Adiciona o <li> dentro de <ul>
+				list.append(li);
+			});
+		}
+	}
+
+	//Pega os to-do já cadastrados e chama função para exibir
+	function getLocalstorageRender() {
+		//Pega todos os to-do cadastrados
+		let todos = localStorage.getItem('todo');
+
+		//Converte em um objeto javascript
+		itens = JSON.parse(todos);		
+		render(itens);
+	}
+	//Inicia buscando os to-do cadastrado no localstorage para exibir
+	getLocalstorageRender();
