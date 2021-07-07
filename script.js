@@ -33,7 +33,13 @@ let     itens = [];
 
 	function render(itens) {
 
-		if(itens != null) {			
+		if(itens != null) {
+
+			//Se for igual a 7 vai desabilitar o input
+			if(itens.length == 7) { 
+				//Desabilita o botao e input
+				input.disabled = true;
+			}	
 
 			list.innerHTML = ``;
 
@@ -44,7 +50,7 @@ let     itens = [];
 				//Cria um atributo data-key dentro da tag <li> com o valor do id
 				li.setAttribute('data-key', item.id);
 				//Exibe o input checkbox dentro de <li>
-				li.innerHTML = `<input type='checkbox' class='checkbox'> ${item.todo} `;
+				li.innerHTML = `<input type='checkbox' class='checkbox'> ${item.todo} <button class='button_delete'>X</button>`;
 				//Adiciona o <li> dentro de <ul>
 				list.append(li);
 			});
@@ -62,3 +68,29 @@ let     itens = [];
 	}
 	//Inicia buscando os to-do cadastrado no localstorage para exibir
 	getLocalstorageRender();
+
+	function deleteTodo(id) {
+		
+		itens = itens.filter(function(item) {
+		   
+		    return item.id != id;
+		});
+		//Atualiza a lista de to-do
+		addLocalStorage(itens);
+	}
+
+	//Todo evento de clique que acontecer dentro da lista de to-do dentro da tag <ul>
+	list.addEventListener('click', function(event) {
+
+		/*Conforme o user for deletando, se a quantidade de to-do for menor que 8 vai habilitar o input*/
+		if(itens.length < 8) { 
+			//Habilita o botao de input
+			input.disabled = false;	
+		}
+
+		//Se o evento aconteceu no button de delete
+		if(event.target.classList.contains('button_delete')) {
+			//Chama a função de deletar e passa o id
+    		deleteTodo(event.target.parentElement.getAttribute('data-key'));
+    	}
+	});
