@@ -3,6 +3,12 @@ const   form = document.querySelector('.form');
 const   list = document.querySelector('.list');
 let     itens = [];
 
+//Drag Drop
+const   todoList = document.querySelector('.todo_list');
+var 	item =  document.getElementsByClassName('item');
+var 	selectItem = '';
+var 	selectedItemPosition = 0;
+
 	//Executa essa funçao assim que o formulário for enviado
 	form.addEventListener('submit', function(event) {
 
@@ -47,6 +53,10 @@ let     itens = [];
 			itens.forEach(function(item) {
 				const li = document.createElement('li');//Cria a tag <li>
 
+				li.id = `id-${item.id}`;//Cria um id com o id do to-do
+				li.classList.add('item');//Cria uma classe item
+				//Cria um objeto arrastável
+				li.setAttribute('draggable', true);
 				//Cria um atributo data-key dentro da tag <li> com o valor do id
 				li.setAttribute('data-key', item.id);
 				//Exibe o input checkbox dentro de <li>
@@ -94,3 +104,72 @@ let     itens = [];
     		deleteTodo(event.target.parentElement.getAttribute('data-key'));
     	}
 	});
+
+//---------------------------------- DRAG AND DROP ---------------------------------------------------
+	//Executa a função quando o usuário começa a arrastar um elemento
+	list.addEventListener("dragstart", function(event) {
+		
+		//Guarda os dados do item que esta sendo arrastado
+		event.dataTransfer.setData('text', event.target.id);
+
+		//Seleciona o item 
+		selectItem =  document.getElementById(event.target.id);
+
+		//Apos 1 milissegundo executa o código abaixo
+		setTimeout(() => {
+			//O to-do selecionado é removido da posiçao inicial
+			list.removeChild(selectItem);
+
+		}, 1)
+	});
+	
+	//Executa a função quando um elemento esta sendo arrastado sobre um ponto de soltura
+	todoList.addEventListener("dragover", function(event) {
+		event.preventDefault();
+		//Envia a coordenada vertical do item
+		itemPosition(event.clientY);
+	});
+
+	//Executa a função quando um elemento arrastado é solto em uma área válida
+	todoList.addEventListener("drop", function(event) {
+		event.preventDefault();
+
+		//O item é inserido antes na posiçao selecionada
+		list.insertBefore(selectItem, list.children[selectedItemPosition]);
+	});
+
+	function positionOfEachItem() {
+
+		//Entra no loop para capturar a posiçao de cada item da lista
+		for (var i = 0; i < item.length; i++) {
+			
+			//Seleciona os itens
+			var element = document.getElementById(item[i]['id']);
+			//Retorna posiçao de cada item no viewport
+			var position = element.getBoundingClientRect();
+
+			//A distancia do topo e de baixo de cada item
+			var yTop = position.top;
+			var yBottom = position.bottom;
+			//Calcula posiçao vertical de cada item da lista
+			item[i]['yPosition'] = yTop + ( (yBottom-yTop)/2 );
+		}
+	}
+
+	function itemPosition(currentYPosition) {
+		positionOfEachItem();
+
+		for (var i = 0; i < item.length; i++) {
+
+			//Identifica se tem algum item acima (menor em altura) do item selecionado
+			if(item[i]['yPosition'] < currentYPosition) {
+				//Este item deve estar acima do item selecionado
+				var itemAbove = document.getElementById(item[i]['id']);
+				selectedItemPosition = i+1;
+			}
+		}
+	
+		if(typeof itemAbove == 'undefined') {
+			selectedItemPosition = 0;
+		}
+	}
